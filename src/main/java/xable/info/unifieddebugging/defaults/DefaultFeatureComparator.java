@@ -3,29 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging;
+package xable.info.unifieddebugging.defaults;
 
 import java.util.Comparator;
+import xable.info.unifieddebugging.UnifiedDebuggingFeature;
 
 /**
+ * A default comparator used to compare UnifiedDebugging sorting features This
+ * class is used when no comparator is given to an instance of
+ * UnifiedDebuggingCollection
  *
  * @author Sam Benton
  */
 public class DefaultFeatureComparator implements Comparator<UnifiedDebuggingFeature> {
 
+    @Override
     public int compare(UnifiedDebuggingFeature o1, UnifiedDebuggingFeature o2) {
-        int priorityComparison = Double.compare(o1.getFeaturePriority().doubleValue(), o2.getFeaturePriority().doubleValue());
+        int priorityComparison = Double.compare(o1.getFeaturePriority(), o2.getFeaturePriority());
+
         String o1String = "";
         String o2String = "";
-        for (Object key : o1.values.keySet()) {
+
+        for (Comparable key : o1.values.keySet()) {
             o1String = String.format("%s/%s=%s", new Object[]{o1String, key, o1.values.get(key)});
         }
-        for (Object key : o2.values.keySet()) {
+        for (Comparable key : o2.values.keySet()) {
             o2String = String.format("%s/%s=%s", new Object[]{o2String, key, o2.values.get(key)});
         }
+
         if (priorityComparison == 0) {
             return o1String.compareTo(o2String);
         }
+        
         return priorityComparison;
     }
 }

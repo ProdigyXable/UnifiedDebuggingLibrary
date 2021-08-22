@@ -10,22 +10,38 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.TreeMap;
+import xable.info.unifieddebugging.defaults.DefaultFeatureComparator;
 
 /**
+ * The primary class of this library. Create an instance of this class when you
+ * wish to utilize UnifiedDebugging
  *
  * @author Sam Benton
+ * @param <T> Any user-defined class extending UnifiedDebuggingItem
  */
-public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItemInterface> {
+public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
 
-    LinkedList<UnifiedDebuggingItemInterface> internalList;
+    LinkedList<UnifiedDebuggingItem> internalList;
 
-    Comparator<UnifiedDebuggingItemInterface> defaultItemComparator;
-
+    Comparator<UnifiedDebuggingItem> defaultItemComparator;
     Comparator<UnifiedDebuggingFeature> defaultFeatureComparator;
 
-    TreeMap<UnifiedDebuggingFeature, LinkedList<UnifiedDebuggingItemInterface>> bucket;
+    TreeMap<UnifiedDebuggingFeature, LinkedList<UnifiedDebuggingItem>> bucket;
 
-    public UnifiedDebuggingCollection(Collection<UnifiedDebuggingItemInterface> c, Comparator<UnifiedDebuggingItemInterface> itemComparator, Comparator<UnifiedDebuggingFeature> featureComparator) {
+    /**
+     * Main constructor for this library
+     *
+     * @param collection Collection of items to be used for unified debugging.
+     * Features are automatically extracted from this items via
+     * @see xable.info.unifieddebugging.UnifiedDebuggingFeature
+     * @see xable.info.unifieddebugging.UnifiedDebuggingItem
+     * @see xable.info.unifieddebugging.UnifiedDebuggingItem#createFeature()
+     * @param itemComparator Comparator to sort UnifiedDebugging items. If null,
+     * no sorting is used.
+     * @param featureComparator Comparator to sort UnifiedDebugging features. If
+     * null, DefaultFeatureComparator is used.
+     */
+    public UnifiedDebuggingCollection(Collection<UnifiedDebuggingItem> collection, Comparator<UnifiedDebuggingItem> itemComparator, Comparator<UnifiedDebuggingFeature> featureComparator) {
         this.internalList = new LinkedList<>();
         this.defaultItemComparator = itemComparator;
         if (featureComparator == null) {
@@ -33,13 +49,15 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItemInterface>
         }
         this.defaultFeatureComparator = featureComparator;
         this.bucket = new TreeMap<>(this.defaultFeatureComparator);
-        for (UnifiedDebuggingItemInterface item : c) {
+
+        for (UnifiedDebuggingItem item : collection) {
             if (!this.bucket.containsKey(item.createFeature())) {
-                LinkedList<UnifiedDebuggingItemInterface> newList = new LinkedList();
+                LinkedList<UnifiedDebuggingItem> newList = new LinkedList();
                 this.bucket.put(item.createFeature(), newList);
             }
-            ((LinkedList<UnifiedDebuggingItemInterface>) this.bucket.get(item.createFeature())).add(item);
+            ((LinkedList<UnifiedDebuggingItem>) this.bucket.get(item.createFeature())).add(item);
         }
+
         if (this.defaultItemComparator != null) {
             for (UnifiedDebuggingFeature key : this.bucket.keySet()) {
                 Collections.sort(this.bucket.get(key), this.defaultItemComparator);
@@ -47,13 +65,24 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItemInterface>
         }
     }
 
-    public void updateItems(UnifiedDebuggingFeature o, Boolean b) {
+    /**
+     * Compares all features in the TreeMap bucket to the passed
+     * UnifiedDebuggingFeature. According to traditional unified debugging,
+     * similar features with sufficient quality (sufficientQuality = true)
+     * should have increased priorities and different features with sufficient
+     * quality should have decreased priorities.
+     *
+     * @param comparingFeature The feature to be compared
+     * @param succifientQuality Represents if the comparingFeature is of
+     * sufficient quality (i.e. high-quality patch)
+     */
+    public void updateItems(UnifiedDebuggingFeature comparingFeature, Boolean succifientQuality) {
         for (UnifiedDebuggingFeature udf : this.bucket.keySet()) {
-            udf.updateFeaturePriority(o, b);
+            udf.updateFeaturePriority(comparingFeature, succifientQuality);
         }
     }
 
-    public TreeMap<UnifiedDebuggingFeature, LinkedList<UnifiedDebuggingItemInterface>> getBucket() {
+    public TreeMap<UnifiedDebuggingFeature, LinkedList<UnifiedDebuggingItem>> getBucket() {
         return this.bucket;
 
     }

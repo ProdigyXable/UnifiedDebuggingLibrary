@@ -16,21 +16,20 @@ import xable.info.unifieddebugging.UnifiedDebuggingFeature;
 public class ExampleFeature extends UnifiedDebuggingFeature {
 
     public int sl = 1;
-
     public int dh = 1;
-
     public int dl = 1;
-
     public int sh = 1;
 
-    public ExampleFeature(TreeMap<Object, Comparable> v, double p) {
+    public ExampleFeature(TreeMap<Comparable, Comparable> v, double p) {
         super(v, p);
     }
 
+    @Override
     public Double getFeaturePriority() {
         return this.priority;
     }
 
+    @Override
     public int compareTo(UnifiedDebuggingFeature o) {
         return ((Comparable) this.values.get(this.values.firstKey())).compareTo(o.values.get(o.values.firstKey()));
     }
@@ -41,32 +40,35 @@ public class ExampleFeature extends UnifiedDebuggingFeature {
 
     public void updateFeaturePriority(UnifiedDebuggingFeature o, Boolean b) {
         LinkedList list = processMapCollection(this.values, o.values, b, new LinkedList());
+
         processMapCollection(o.values, this.values, b, list);
-        this.priority = Double.valueOf(this.sh / Math.sqrt(((this.sh + this.dh) * (this.sh + this.sl))));
+        this.priority = this.sh / Math.sqrt(((this.sh + this.dh) * (this.sh + this.sl)));
     }
 
-    private LinkedList processMapCollection(TreeMap<Object, Comparable> values, TreeMap<Object, Comparable> o, Boolean b, LinkedList<Object> list) {
-        for (Object key : values.keySet()) {
+    private LinkedList processMapCollection(TreeMap<Comparable, Comparable> values, TreeMap<Comparable, Comparable> o, Boolean b, LinkedList<Object> list) {
+        for (Comparable key : values.keySet()) {
             if (!list.contains(key)) {
                 list.add(key);
+
                 Comparable o1 = values.get(key);
                 Comparable o2 = o.get(key);
+
                 if (b.equals(Boolean.TRUE)) {
                     if (o1.equals(o2)) {
                         this.sh++;
-                        continue;
+                    } else {
+                        this.dh++;
                     }
-                    this.dh++;
-                    continue;
+                } else {
+                    if (o1.equals(o2)) {
+                        this.sl++;
+                    } else {
+                        this.dl++;
+                    }
                 }
-                if (o1.equals(o2)) {
-                    this.sl++;
-                    continue;
-                }
-                this.dl++;
             }
         }
+        
         return list;
-
     }
 }

@@ -7,13 +7,13 @@ package xable.info.unifieddebugging.classUtility;
 
 import java.util.TreeMap;
 import xable.info.unifieddebugging.UnifiedDebuggingFeature;
-import xable.info.unifieddebugging.UnifiedDebuggingItemInterface;
+import xable.info.unifieddebugging.UnifiedDebuggingItem;
 
 /**
  *
  * @author Sam Benton
  */
-public class StringItemNormal implements UnifiedDebuggingItemInterface {
+public class StringItemNormal implements UnifiedDebuggingItem {
 
     String string;
 
@@ -21,32 +21,35 @@ public class StringItemNormal implements UnifiedDebuggingItemInterface {
 
     public StringItemNormal(String s) {
         this.string = s;
-        this.initialPriority = Double.valueOf(0.5D);
+        this.initialPriority = 0.5D;
     }
 
-    TreeMap<Object, Comparable> mapInternalValue(String s) {
-        TreeMap<Object, Comparable> result = new TreeMap<>();
+    TreeMap<Comparable, Comparable> mapInternalValue(String s) {
+        TreeMap<Comparable, Comparable> result = new TreeMap<>();
         result.put("F1", s);
         return result;
     }
 
+    @Override
     public UnifiedDebuggingFeature createFeature() {
-        return new ExampleFeature(mapInternalValue(this.string), this.initialPriority.doubleValue());
+        return new ExampleFeature(mapInternalValue(this.string), this.initialPriority);
     }
 
+    @Override
     public String toString() {
         return this.string;
     }
 
     public double getFeaturePriority() {
-        return this.initialPriority.doubleValue();
+        return this.initialPriority;
     }
 
     public void updateFeaturePriority() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Comparable getComparable() {
+    @Override
+    public Comparable getItemComparable() {
         return this.string;
     }
 }

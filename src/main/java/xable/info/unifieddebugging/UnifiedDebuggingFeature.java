@@ -15,16 +15,25 @@ public abstract class UnifiedDebuggingFeature implements Comparable<UnifiedDebug
 
     protected Double priority;
 
-    public TreeMap<Object, Comparable> values;
+    public TreeMap<Comparable, Comparable> values;
 
-    public UnifiedDebuggingFeature(TreeMap<Object, Comparable> v, double p) {
+    public UnifiedDebuggingFeature(TreeMap<Comparable, Comparable> v, double p) {
         this.values = v;
-        this.priority = Double.valueOf(p);
+        this.priority = p;
     }
 
     public abstract Double getFeaturePriority();
 
+    /**
+     * Compares this feature to the passed UnifiedDebuggingFeature. According to
+     * traditional unified debugging, similar features with sufficient quality
+     * (sufficientQuality = true) should have increased priorities and different
+     * features with sufficient quality should have decreased priorities.
+     *
+     * @param paramUnifiedDebuggingFeature The feature to be compared
+     * @param paramBoolean Represents if the comparingFeature is of sufficient
+     * quality (i.e. high-quality patch)
+     *
+     */
     public abstract void updateFeaturePriority(UnifiedDebuggingFeature paramUnifiedDebuggingFeature, Boolean paramBoolean);
-
-    public abstract String toString();
 }
