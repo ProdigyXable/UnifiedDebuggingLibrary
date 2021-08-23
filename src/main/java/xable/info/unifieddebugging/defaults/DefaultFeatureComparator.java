@@ -25,16 +25,16 @@ public class DefaultFeatureComparator implements Comparator<UnifiedDebuggingFeat
         String o2String = "";
 
         for (Comparable key : o1.values.keySet()) {
-            o1String = String.format("%s/%s=%s", new Object[]{o1String, key, o1.values.get(key)});
+            o1String = String.format("%s/%s=%s", o1String, key, o1.values.get(key));
         }
         for (Comparable key : o2.values.keySet()) {
-            o2String = String.format("%s/%s=%s", new Object[]{o2String, key, o2.values.get(key)});
+            o2String = String.format("%s/%s=%s", o2String, key, o2.values.get(key));
         }
 
         if (priorityComparison == 0) {
             return o1String.compareTo(o2String);
         }
-        
+
         return priorityComparison;
     }
 }

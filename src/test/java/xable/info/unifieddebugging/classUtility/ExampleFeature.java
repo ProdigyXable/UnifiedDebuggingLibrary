@@ -31,11 +31,11 @@ public class ExampleFeature extends UnifiedDebuggingFeatureSet {
 
     @Override
     public int compareTo(UnifiedDebuggingFeatureSet o) {
-        return ((Comparable) this.values.get(this.values.firstKey())).compareTo(o.values.get(o.values.firstKey()));
+        return this.getRepresentation().compareTo(o.getRepresentation());
     }
 
     public String toString() {
-        return String.format("Feature: %s", new Object[]{this.values.toString()});
+        return String.format("Feature: %s", this.values.toString());
     }
 
     public void updateFeaturePriority(UnifiedDebuggingFeatureSet o, Boolean b) {
@@ -71,4 +71,15 @@ public class ExampleFeature extends UnifiedDebuggingFeatureSet {
         
         return list;
     }
+
+    /**
+     * 
+     * @return A comparable
+     */
+    @Override
+    public Comparable getRepresentation() {
+        return this.values.get(this.values.firstKey());
+    }
+    
+    
 }

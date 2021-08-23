@@ -32,7 +32,7 @@ public class SeAprExample implements UnifiedDebuggingItem {
 
     @Override
     public Comparable getItemComparable() {
-        return String.format("%s-%s-%s-%s", new Object[]{this.e1, this.e2, this.e3, this.e4});
+        return String.format("%s-%s-%s-%s", this.e1, this.e2, this.e3, this.e4);
     }
 
     @Override

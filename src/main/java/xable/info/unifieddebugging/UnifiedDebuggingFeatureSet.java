@@ -36,4 +36,6 @@ public abstract class UnifiedDebuggingFeatureSet implements Comparable<UnifiedDe
      *
      */
     public abstract void updateFeaturePriority(UnifiedDebuggingFeatureSet paramUnifiedDebuggingFeature, Boolean paramBoolean);
+    
+    public abstract Comparable getRepresentation();
 }
