@@ -21,7 +21,7 @@ public interface UnifiedDebuggingItem {
 
     /**
      *
-     * @return Creates a UnifiedDebuggingFeature based on the class' properties
+     * @return Creates a UnifiedDebuggingFeatureSet based on the class' properties
      */
-    UnifiedDebuggingFeature createFeature();
+    UnifiedDebuggingFeatureSet createFeature();
 }

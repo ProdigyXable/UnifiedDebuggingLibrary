@@ -24,16 +24,16 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
     LinkedList<UnifiedDebuggingItem> internalList;
 
     Comparator<UnifiedDebuggingItem> defaultItemComparator;
-    Comparator<UnifiedDebuggingFeature> defaultFeatureComparator;
+    Comparator<UnifiedDebuggingFeatureSet> defaultFeatureComparator;
 
-    TreeMap<UnifiedDebuggingFeature, LinkedList<UnifiedDebuggingItem>> bucket;
+    TreeMap<UnifiedDebuggingFeatureSet, LinkedList<UnifiedDebuggingItem>> bucket;
 
     /**
      * Main constructor for this library
      *
      * @param collection Collection of items to be used for unified debugging.
      * Features are automatically extracted from this items via
-     * @see xable.info.unifieddebugging.UnifiedDebuggingFeature
+     * @see xable.info.unifieddebugging.UnifiedDebuggingFeatureSet
      * @see xable.info.unifieddebugging.UnifiedDebuggingItem
      * @see xable.info.unifieddebugging.UnifiedDebuggingItem#createFeature()
      * @param itemComparator Comparator to sort UnifiedDebugging items. If null,
@@ -41,7 +41,7 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
      * @param featureComparator Comparator to sort UnifiedDebugging features. If
      * null, DefaultFeatureComparator is used.
      */
-    public UnifiedDebuggingCollection(Collection<UnifiedDebuggingItem> collection, Comparator<UnifiedDebuggingItem> itemComparator, Comparator<UnifiedDebuggingFeature> featureComparator) {
+    public UnifiedDebuggingCollection(Collection<UnifiedDebuggingItem> collection, Comparator<UnifiedDebuggingItem> itemComparator, Comparator<UnifiedDebuggingFeatureSet> featureComparator) {
         this.internalList = new LinkedList<>();
         this.defaultItemComparator = itemComparator;
         if (featureComparator == null) {
@@ -55,11 +55,12 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
                 LinkedList<UnifiedDebuggingItem> newList = new LinkedList();
                 this.bucket.put(item.createFeature(), newList);
             }
-            ((LinkedList<UnifiedDebuggingItem>) this.bucket.get(item.createFeature())).add(item);
+
+            this.bucket.get(item.createFeature()).add(item);
         }
 
         if (this.defaultItemComparator != null) {
-            for (UnifiedDebuggingFeature key : this.bucket.keySet()) {
+            for (UnifiedDebuggingFeatureSet key : this.bucket.keySet()) {
                 Collections.sort(this.bucket.get(key), this.defaultItemComparator);
             }
         }
@@ -76,13 +77,13 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
      * @param succifientQuality Represents if the comparingFeature is of
      * sufficient quality (i.e. high-quality patch)
      */
-    public void updateItems(UnifiedDebuggingFeature comparingFeature, Boolean succifientQuality) {
-        for (UnifiedDebuggingFeature udf : this.bucket.keySet()) {
+    public void updateItems(UnifiedDebuggingFeatureSet comparingFeature, Boolean succifientQuality) {
+        for (UnifiedDebuggingFeatureSet udf : this.bucket.keySet()) {
             udf.updateFeaturePriority(comparingFeature, succifientQuality);
         }
     }
 
-    public TreeMap<UnifiedDebuggingFeature, LinkedList<UnifiedDebuggingItem>> getBucket() {
+    public TreeMap<UnifiedDebuggingFeatureSet, LinkedList<UnifiedDebuggingItem>> getBucket() {
         return this.bucket;
 
     }

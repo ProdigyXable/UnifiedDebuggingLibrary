@@ -7,13 +7,13 @@ package xable.info.unifieddebugging.classUtility;
 
 import java.util.LinkedList;
 import java.util.TreeMap;
-import xable.info.unifieddebugging.UnifiedDebuggingFeature;
+import xable.info.unifieddebugging.UnifiedDebuggingFeatureSet;
 
 /**
  *
  * @author Sam Benton
  */
-public class ExampleFeature extends UnifiedDebuggingFeature {
+public class ExampleFeature extends UnifiedDebuggingFeatureSet {
 
     public int sl = 1;
     public int dh = 1;
@@ -30,7 +30,7 @@ public class ExampleFeature extends UnifiedDebuggingFeature {
     }
 
     @Override
-    public int compareTo(UnifiedDebuggingFeature o) {
+    public int compareTo(UnifiedDebuggingFeatureSet o) {
         return ((Comparable) this.values.get(this.values.firstKey())).compareTo(o.values.get(o.values.firstKey()));
     }
 
@@ -38,7 +38,7 @@ public class ExampleFeature extends UnifiedDebuggingFeature {
         return String.format("Feature: %s", new Object[]{this.values.toString()});
     }
 
-    public void updateFeaturePriority(UnifiedDebuggingFeature o, Boolean b) {
+    public void updateFeaturePriority(UnifiedDebuggingFeatureSet o, Boolean b) {
         LinkedList list = processMapCollection(this.values, o.values, b, new LinkedList());
 
         processMapCollection(o.values, this.values, b, list);

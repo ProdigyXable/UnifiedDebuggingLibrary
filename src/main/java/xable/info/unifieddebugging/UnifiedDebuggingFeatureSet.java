@@ -8,16 +8,16 @@ package xable.info.unifieddebugging;
 import java.util.TreeMap;
 
 /**
- *
+ * Base class class representing the unified debugging sorting features
  * @author Sam Benton
  */
-public abstract class UnifiedDebuggingFeature implements Comparable<UnifiedDebuggingFeature> {
+public abstract class UnifiedDebuggingFeatureSet implements Comparable<UnifiedDebuggingFeatureSet> {
 
     protected Double priority;
 
     public TreeMap<Comparable, Comparable> values;
 
-    public UnifiedDebuggingFeature(TreeMap<Comparable, Comparable> v, double p) {
+    public UnifiedDebuggingFeatureSet(TreeMap<Comparable, Comparable> v, double p) {
         this.values = v;
         this.priority = p;
     }
@@ -35,5 +35,5 @@ public abstract class UnifiedDebuggingFeature implements Comparable<UnifiedDebug
      * quality (i.e. high-quality patch)
      *
      */
-    public abstract void updateFeaturePriority(UnifiedDebuggingFeature paramUnifiedDebuggingFeature, Boolean paramBoolean);
+    public abstract void updateFeaturePriority(UnifiedDebuggingFeatureSet paramUnifiedDebuggingFeature, Boolean paramBoolean);
 }

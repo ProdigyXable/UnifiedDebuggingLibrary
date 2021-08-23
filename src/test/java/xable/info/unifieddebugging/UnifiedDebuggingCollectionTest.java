@@ -153,9 +153,9 @@ public class UnifiedDebuggingCollectionTest {
 
     }
 
-    private ExampleFeature getKey(Collection<UnifiedDebuggingFeature> bucket, UnifiedDebuggingFeature udf) {
+    private ExampleFeature getKey(Collection<UnifiedDebuggingFeatureSet> bucket, UnifiedDebuggingFeatureSet udf) {
         ExampleFeature ef = null;
-        for (UnifiedDebuggingFeature key : bucket) {
+        for (UnifiedDebuggingFeatureSet key : bucket) {
             if (key.toString().equals(udf.toString())) {
                 ef = (ExampleFeature) key;
             }

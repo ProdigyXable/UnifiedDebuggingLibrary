@@ -6,7 +6,7 @@
 package xable.info.unifieddebugging.defaults;
 
 import java.util.Comparator;
-import xable.info.unifieddebugging.UnifiedDebuggingFeature;
+import xable.info.unifieddebugging.UnifiedDebuggingFeatureSet;
 
 /**
  * A default comparator used to compare UnifiedDebugging sorting features This
@@ -15,10 +15,10 @@ import xable.info.unifieddebugging.UnifiedDebuggingFeature;
  *
  * @author Sam Benton
  */
-public class DefaultFeatureComparator implements Comparator<UnifiedDebuggingFeature> {
+public class DefaultFeatureComparator implements Comparator<UnifiedDebuggingFeatureSet> {
 
     @Override
-    public int compare(UnifiedDebuggingFeature o1, UnifiedDebuggingFeature o2) {
+    public int compare(UnifiedDebuggingFeatureSet o1, UnifiedDebuggingFeatureSet o2) {
         int priorityComparison = Double.compare(o1.getFeaturePriority(), o2.getFeaturePriority());
 
         String o1String = "";

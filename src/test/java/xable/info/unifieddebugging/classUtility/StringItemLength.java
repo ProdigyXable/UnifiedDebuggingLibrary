@@ -6,7 +6,7 @@
 package xable.info.unifieddebugging.classUtility;
 
 import java.util.TreeMap;
-import xable.info.unifieddebugging.UnifiedDebuggingFeature;
+import xable.info.unifieddebugging.UnifiedDebuggingFeatureSet;
 import xable.info.unifieddebugging.UnifiedDebuggingItem;
 
 /**
@@ -31,7 +31,7 @@ public class StringItemLength implements UnifiedDebuggingItem {
     }
 
     @Override
-    public UnifiedDebuggingFeature createFeature() {
+    public UnifiedDebuggingFeatureSet createFeature() {
         return new ExampleFeature(mapInternalValue(this.string), this.initialPriority);
     }
 

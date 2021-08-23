@@ -6,7 +6,7 @@
 package xable.info.unifieddebugging.classUtility;
 
 import java.util.TreeMap;
-import xable.info.unifieddebugging.UnifiedDebuggingFeature;
+import xable.info.unifieddebugging.UnifiedDebuggingFeatureSet;
 import xable.info.unifieddebugging.UnifiedDebuggingItem;
 
 /**
@@ -36,7 +36,7 @@ public class SeAprExample implements UnifiedDebuggingItem {
     }
 
     @Override
-    public UnifiedDebuggingFeature createFeature() {
+    public UnifiedDebuggingFeatureSet createFeature() {
         TreeMap<Comparable, Comparable> result = new TreeMap<>();
         if (this.e1 != null) {
             result.put("e1", this.e1);
