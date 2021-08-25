@@ -11,20 +11,23 @@ import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import xable.info.unifieddebugging.classUtility.ExampleFeature;
-import xable.info.unifieddebugging.classUtility.SeAprExample;
+import xable.info.unifieddebugging.classUtility.ExampleItem;
 import xable.info.unifieddebugging.classUtility.StringItemLength;
 import xable.info.unifieddebugging.classUtility.StringItemNormal;
+import xable.info.unifieddebugging.defaults.DefaultItemComparator;
+import xable.info.unifieddebugging.metrics.factories.MetricFactory;
+import xable.info.unifieddebugging.metrics.factories.OchiaiMetricFactory;
 
 /**
  *
  * @author Sam Benton
  */
 public class UnifiedDebuggingCollectionTest {
+
+    MetricFactory testFactory = new OchiaiMetricFactory();
 
     public UnifiedDebuggingCollectionTest() {
     }
@@ -47,7 +50,6 @@ public class UnifiedDebuggingCollectionTest {
 
     @Test
     public void constructorTest1() {
-
         LinkedList list = new LinkedList();
         StringItemNormal s1 = new StringItemNormal("Apple");
         StringItemNormal s2 = new StringItemNormal("Ball");
@@ -61,12 +63,12 @@ public class UnifiedDebuggingCollectionTest {
         list.add(s4);
         list.add(s5);
 
-        UnifiedDebuggingCollection<StringItemNormal> udc = new UnifiedDebuggingCollection(list, null, null);
-        assertEquals("Proper bucket size check", 4, udc.bucket.keySet().size());
+        UnifiedDebuggingCollection<StringItemNormal> udc = new UnifiedDebuggingCollection(list, null, testFactory);
+        assertEquals("Proper bucket size check", 4, udc.dataBucket.keySet().size());
 
-        assertEquals("Proper duplicate listing", 2, udc.bucket.get(s2.createFeature()).size());
+        assertEquals("Proper duplicate listing", 2, udc.dataBucket.get(s2.createFeature()).size());
 
-        for (Collection c : udc.bucket.values()) {
+        for (Collection c : udc.dataBucket.values()) {
             assertFalse("Check to see every key has non-empty colleciton", c.isEmpty());
         }
     }
@@ -86,23 +88,23 @@ public class UnifiedDebuggingCollectionTest {
         list.add(s4);
         list.add(s5);
 
-        UnifiedDebuggingCollection<StringItemLength> udc = new UnifiedDebuggingCollection(list, null, null);
+        UnifiedDebuggingCollection<StringItemLength> udc = new UnifiedDebuggingCollection(list, null, testFactory);
 
-        assertEquals("Proper bucket size check", 3, udc.bucket.keySet().size());
+        assertEquals("Proper bucket size check", 3, udc.dataBucket.keySet().size());
 
         LinkedList temp = new LinkedList();
         temp.add(s1);
         temp.add(s4);
 
-        assertEquals("Proper ordering - Check 1", temp, udc.getBucket().get(s4.createFeature()));
+        assertEquals("Proper ordering - Check 1", temp, udc.getDataBucket().get(s4.createFeature()));
         temp.clear();
 
         temp.add(s2);
         temp.add(s5);
 
-        assertEquals("Proper ordering - Check 2", temp, udc.getBucket().get(s2.createFeature()));
+        assertEquals("Proper ordering - Check 2", temp, udc.getDataBucket().get(s2.createFeature()));
 
-        for (Collection c : udc.bucket.values()) {
+        for (Collection c : udc.dataBucket.values()) {
             assertFalse("Check to see every key has non-empty colleciton", c.isEmpty());
         }
 
@@ -110,14 +112,13 @@ public class UnifiedDebuggingCollectionTest {
 
     @Test
     public void reprioritizeTest() {
-
         LinkedList list = new LinkedList();
-        SeAprExample p1 = new SeAprExample(true, true, true, null);
-        SeAprExample p2 = new SeAprExample(true, true, true, true);
-        SeAprExample p3 = new SeAprExample(null, true, true, null);
-        SeAprExample p4 = new SeAprExample(true, null, null, null);
-        SeAprExample p5 = new SeAprExample(null, null, null, true);
-        SeAprExample p6 = new SeAprExample(null, null, null, null);
+        ExampleItem p1 = new ExampleItem(true, true, true, null, 1);
+        ExampleItem p2 = new ExampleItem(true, true, true, true, 2);
+        ExampleItem p3 = new ExampleItem(null, true, true, null, 3);
+        ExampleItem p4 = new ExampleItem(true, null, null, null, 4);
+        ExampleItem p5 = new ExampleItem(null, null, null, true, 5);
+        ExampleItem p6 = new ExampleItem(null, null, null, null, 6);
 
         list.add(p1);
         list.add(p2);
@@ -126,43 +127,52 @@ public class UnifiedDebuggingCollectionTest {
         list.add(p5);
         list.add(p6);
 
-        UnifiedDebuggingCollection<SeAprExample> udc = new UnifiedDebuggingCollection(list, null, null);
+        UnifiedDebuggingCollection<ExampleItem> udc = new UnifiedDebuggingCollection(list, null, testFactory);
 
-        assertEquals("Proper bucket size check", 6, udc.bucket.size());
+        assertEquals("Proper bucket size check", 6, udc.dataBucket.size());
 
-        ExampleFeature ef;
+        udc.updateItems(p1, Boolean.FALSE);
 
-        udc.updateItems(p1.createFeature(), Boolean.FALSE);
-
-        ef = getKey(udc.bucket.keySet(), p2.createFeature());
-        assertEquals(String.format("%.2f", 0.32), String.format("%.2f", ef.getFeaturePriority()));
-
-        ef = getKey(udc.bucket.keySet(), p3.createFeature());
-        assertEquals(String.format("%.2f", 0.35), String.format("%.2f", ef.getFeaturePriority()));
-
-        ef = getKey(udc.bucket.keySet(), p4.createFeature());
-        assertEquals(String.format("%.2f", 0.41), String.format("%.2f", ef.getFeaturePriority()));
-
-        udc.updateItems(p4.createFeature(), Boolean.TRUE);
-
-        ef = getKey(udc.bucket.keySet(), p2.createFeature());
-        assertEquals(String.format("%.2f", 0.33), String.format("%.2f", ef.getFeaturePriority()));
-
-        ef = getKey(udc.bucket.keySet(), p3.createFeature());
-        assertEquals(String.format("%.2f", 0.22), String.format("%.2f", ef.getFeaturePriority()));
-
-    }
-
-    private ExampleFeature getKey(Collection<UnifiedDebuggingFeatureSet> bucket, UnifiedDebuggingFeatureSet udf) {
-        ExampleFeature ef = null;
-        for (UnifiedDebuggingFeatureSet key : bucket) {
-            if (key.toString().equals(udf.toString())) {
-                ef = (ExampleFeature) key;
-            }
+        for (UnifiedDebuggingItem item : udc.internalList) {
+            System.out.println(String.format("%s %s", item.getMetric().describe(), item.getItemComparable()));
         }
 
-        assertNotNull(ef);
-        return ef;
+        assertEquals(String.format("%.2f", 0.32), String.format("%.2f", p2.getMetric().getPriority()));
+        assertEquals(String.format("%.2f", 0.35), String.format("%.2f", p3.getMetric().getPriority()));
+        assertEquals(String.format("%.2f", 0.41), String.format("%.2f", p4.getMetric().getPriority()));
+
+        udc.updateItems(p4, Boolean.TRUE);
+        assertEquals(String.format("%.2f", 0.33), String.format("%.2f", p2.getMetric().getPriority()));
+        assertEquals(String.format("%.2f", 0.22), String.format("%.2f", p3.getMetric().getPriority()));
     }
 
+    @Test
+    public void popTest() {
+        LinkedList list = new LinkedList();
+        ExampleItem p1 = new ExampleItem(true, true, true, null, 1);
+        ExampleItem p2 = new ExampleItem(true, true, true, true, 2);
+        ExampleItem p3 = new ExampleItem(null, true, true, null, 3);
+        ExampleItem p4 = new ExampleItem(true, null, null, null, 4);
+
+        list.add(p1);
+        list.add(p2);
+        list.add(p3);
+        list.add(p4);
+
+        UnifiedDebuggingCollection<ExampleItem> udc = new UnifiedDebuggingCollection(list, new DefaultItemComparator(), testFactory);
+        assertEquals("Proper bucket size check", 4, udc.dataBucket.size());
+
+        ExampleItem i = (ExampleItem) udc.pop();
+        assertEquals("Proper pop check - p1", p1.getFeature(), i.getFeature());
+        udc.updateItems(i, Boolean.FALSE);
+
+        i = (ExampleItem) udc.pop();
+        assertEquals("Proper pop check - p4", p4.getFeature(), i.getFeature());
+        assertEquals(String.format("%.2f", 0.41), String.format("%.2f", i.getMetric().getPriority()));
+        udc.updateItems(i, Boolean.TRUE);
+
+        i = (ExampleItem) udc.pop();
+        assertEquals("Proper pop check - p2", p2.getFeature(), i.getFeature());
+        assertEquals(String.format("%.2f", 0.33), String.format("%.2f", i.getMetric().getPriority()));
+    }
 }

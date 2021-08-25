@@ -21,7 +21,32 @@ public interface UnifiedDebuggingItem {
 
     /**
      *
-     * @return Creates a UnifiedDebuggingFeatureSet based on the class' properties
+     * @return Creates a UnifiedDebuggingKey based on the class' properties
      */
-    UnifiedDebuggingFeatureSet createFeature();
+    public UnifiedDebuggingKey getFeature();
+
+    /**
+     * Used in the DefaultItemComparator, defines a natural ordering of item
+     * elements, used when the priorities of two item's match
+     *
+     * @see xable.info.unifieddebugging.defaults.DefaultItemComparator
+     * @return
+     */
+    public int getNaturalOrder();
+
+    public void updateFeaturePriority(UnifiedDebuggingKey comparingFeature, Boolean sufficientQuality);
+
+    /**
+     * Set an item's metric
+     *
+     * @param block
+     */
+    public void setMetric(UnifiedDebuggingMetric block);
+
+    /**
+     * Retrieves an item's metric
+     *
+     * @return An item's metric
+     */
+    public UnifiedDebuggingMetric getMetric();
 }

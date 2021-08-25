@@ -6,8 +6,9 @@
 package xable.info.unifieddebugging.classUtility;
 
 import java.util.TreeMap;
-import xable.info.unifieddebugging.UnifiedDebuggingFeatureSet;
 import xable.info.unifieddebugging.UnifiedDebuggingItem;
+import xable.info.unifieddebugging.UnifiedDebuggingKey;
+import xable.info.unifieddebugging.UnifiedDebuggingMetric;
 
 /**
  *
@@ -16,12 +17,12 @@ import xable.info.unifieddebugging.UnifiedDebuggingItem;
 public class StringItemLength implements UnifiedDebuggingItem {
 
     String string;
-
-    Double initialPriority;
+    Double priority;
+    UnifiedDebuggingMetric metric;
 
     public StringItemLength(String s) {
         this.string = s;
-        this.initialPriority = 0.5D;
+        this.priority = 0.5D;
     }
 
     TreeMap<Comparable, Comparable> mapInternalValue(String s) {
@@ -30,9 +31,8 @@ public class StringItemLength implements UnifiedDebuggingItem {
         return result;
     }
 
-    @Override
-    public UnifiedDebuggingFeatureSet createFeature() {
-        return new ExampleFeature(mapInternalValue(this.string), this.initialPriority);
+    public UnifiedDebuggingKey createFeature() {
+        return new ExampleFeature(mapInternalValue(this.string));
     }
 
     @Override
@@ -41,11 +41,37 @@ public class StringItemLength implements UnifiedDebuggingItem {
     }
 
     public double getFeaturePriority() {
-        return this.initialPriority;
+        return this.priority;
     }
 
     @Override
     public Comparable getItemComparable() {
         return this.string;
     }
+
+    @Override
+    public void updateFeaturePriority(UnifiedDebuggingKey udk, Boolean bln) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setMetric(UnifiedDebuggingMetric udmb) {
+        this.metric = udmb;
+    }
+
+    @Override
+    public UnifiedDebuggingMetric getMetric() {
+        return this.metric;
+    }
+
+    @Override
+    public UnifiedDebuggingKey getFeature() {
+        return this.createFeature();
+    }
+
+    @Override
+    public int getNaturalOrder() {
+        return 1;
+    }
+
 }

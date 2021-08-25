@@ -6,35 +6,23 @@
 package xable.info.unifieddebugging.defaults;
 
 import java.util.Comparator;
-import xable.info.unifieddebugging.UnifiedDebuggingFeatureSet;
+import xable.info.unifieddebugging.UnifiedDebuggingKey;
 
 /**
  * A default comparator used to compare UnifiedDebugging sorting features This
  * class is used when no comparator is given to an instance of
+ * UnifiedDebuggingCollection. Usable in a TreeMap-based
  * UnifiedDebuggingCollection
  *
  * @author Sam Benton
  */
-public class DefaultFeatureComparator implements Comparator<UnifiedDebuggingFeatureSet> {
+public class DefaultFeatureComparator implements Comparator<UnifiedDebuggingKey> {
 
     @Override
-    public int compare(UnifiedDebuggingFeatureSet o1, UnifiedDebuggingFeatureSet o2) {
-        int priorityComparison = Double.compare(o1.getFeaturePriority(), o2.getFeaturePriority());
+    public int compare(UnifiedDebuggingKey o1, UnifiedDebuggingKey o2) {
+        Comparable o1compare = o1.getRepresentation();
+        Comparable o2compare = o2.getRepresentation();
 
-        String o1String = "";
-        String o2String = "";
-
-        for (Comparable key : o1.values.keySet()) {
-            o1String = String.format("%s/%s=%s", o1String, key, o1.values.get(key));
-        }
-        for (Comparable key : o2.values.keySet()) {
-            o2String = String.format("%s/%s=%s", o2String, key, o2.values.get(key));
-        }
-
-        if (priorityComparison == 0) {
-            return o1String.compareTo(o2String);
-        }
-
-        return priorityComparison;
+        return o1compare.compareTo(o2compare);
     }
 }
