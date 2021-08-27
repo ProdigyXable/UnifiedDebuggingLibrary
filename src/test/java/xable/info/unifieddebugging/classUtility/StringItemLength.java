@@ -5,7 +5,7 @@
  */
 package xable.info.unifieddebugging.classUtility;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import xable.info.unifieddebugging.UnifiedDebuggingItem;
 import xable.info.unifieddebugging.UnifiedDebuggingKey;
 import xable.info.unifieddebugging.UnifiedDebuggingMetric;
@@ -25,8 +25,8 @@ public class StringItemLength implements UnifiedDebuggingItem {
         this.priority = 0.5D;
     }
 
-    TreeMap<Comparable, Comparable> mapInternalValue(String s) {
-        TreeMap<Comparable, Comparable> result = new TreeMap<>();
+    HashMap<Comparable, Comparable> mapInternalValue(String s) {
+        HashMap<Comparable, Comparable> result = new HashMap<>();
         result.put("F1", s.length());
         return result;
     }

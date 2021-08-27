@@ -1,0 +1,22 @@
+@startuml
+abstract class xable.info.unifieddebugging.UnifiedDebuggingKey
+abstract class xable.info.unifieddebugging.UnifiedDebuggingMetric
+abstract class xable.info.unifieddebugging.metrics.factories.MetricFactory
+class junit.framework.Assert
+class xable.info.unifieddebugging.UnifiedDebuggingCollection
+class xable.info.unifieddebugging.defaults.DefaultFeatureComparator
+class xable.info.unifieddebugging.defaults.DefaultItemComparator
+class xable.info.unifieddebugging.metrics.OchiaiMetric
+class xable.info.unifieddebugging.metrics.factories.OchiaiMetricFactory
+interface xable.info.unifieddebugging.UnifiedDebuggingItem
+xable.info.unifieddebugging.metrics.factories.MetricFactory ..> xable.info.unifieddebugging.UnifiedDebuggingMetric
+xable.info.unifieddebugging.UnifiedDebuggingCollection ..> xable.info.unifieddebugging.metrics.factories.MetricFactory
+xable.info.unifieddebugging.UnifiedDebuggingCollection ..> junit.framework.Assert
+xable.info.unifieddebugging.defaults.DefaultFeatureComparator ..> xable.info.unifieddebugging.UnifiedDebuggingKey
+xable.info.unifieddebugging.defaults.DefaultItemComparator ..> xable.info.unifieddebugging.UnifiedDebuggingItem
+xable.info.unifieddebugging.metrics.OchiaiMetric ..> xable.info.unifieddebugging.UnifiedDebuggingKey
+xable.info.unifieddebugging.metrics.OchiaiMetric --|> xable.info.unifieddebugging.UnifiedDebuggingMetric
+xable.info.unifieddebugging.metrics.factories.OchiaiMetricFactory ..> xable.info.unifieddebugging.UnifiedDebuggingMetric
+xable.info.unifieddebugging.metrics.factories.OchiaiMetricFactory --|> xable.info.unifieddebugging.metrics.factories.MetricFactory
+xable.info.unifieddebugging.metrics.factories.OchiaiMetricFactory ..> xable.info.unifieddebugging.metrics.OchiaiMetric
+@enduml

@@ -158,7 +158,7 @@ public class UnifiedDebuggingCollectionTest {
         list.add(p2);
         list.add(p3);
         list.add(p4);
-
+        
         UnifiedDebuggingCollection<ExampleItem> udc = new UnifiedDebuggingCollection(list, new DefaultItemComparator(), testFactory);
         assertEquals("Proper bucket size check", 4, udc.dataBucket.size());
 

@@ -5,8 +5,8 @@
  */
 package xable.info.unifieddebugging;
 
+import java.util.HashMap;
 import java.util.Objects;
-import java.util.TreeMap;
 
 /**
  * Base class class representing the unified debugging sorting features
@@ -15,9 +15,13 @@ import java.util.TreeMap;
  */
 public abstract class UnifiedDebuggingKey implements Comparable<UnifiedDebuggingKey> {
 
-    public TreeMap<Comparable, Comparable> values;
+    public HashMap<Comparable, Comparable> values;
 
-    public UnifiedDebuggingKey(TreeMap<Comparable, Comparable> v) {
+    public UnifiedDebuggingKey() {
+        this.values = new HashMap();
+    }
+
+    public UnifiedDebuggingKey(HashMap<Comparable, Comparable> v) {
         this.values = v;
     }
 

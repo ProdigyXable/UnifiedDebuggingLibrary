@@ -5,7 +5,7 @@
  */
 package xable.info.unifieddebugging.classUtility;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import xable.info.unifieddebugging.UnifiedDebuggingItem;
 import xable.info.unifieddebugging.UnifiedDebuggingKey;
 import xable.info.unifieddebugging.UnifiedDebuggingMetric;
@@ -43,7 +43,7 @@ public final class ExampleItem implements UnifiedDebuggingItem {
     }
 
     public UnifiedDebuggingKey createFeature() {
-        TreeMap<Comparable, Comparable> result = new TreeMap<>();
+        HashMap<Comparable, Comparable> result = new HashMap<>();
         if (this.e1 != null) {
             result.put("e1", this.e1);
         }

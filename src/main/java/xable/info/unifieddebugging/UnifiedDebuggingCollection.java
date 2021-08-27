@@ -10,8 +10,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import xable.info.unifieddebugging.metrics.factories.MetricFactory;
 
 /**
@@ -88,12 +89,16 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
             this.dataBucket.get(item.getFeature()).add(item);
         }
 
+        for (UnifiedDebuggingKey k : this.dataBucket.keySet()) {
+            this.sortCollection(this.dataBucket.get(k), this.listSortingComparator);
+        }
+
         // Ensure collection is sorted after initialization
-        this.sortCollection();
+        this.sortCollection(internalList, this.listSortingComparator);
     }
 
     /**
-     * Compares all features in the TreeMap dataBucket to the passed
+     * Compares all features in the HashMap dataBucket to the passed
      * UnifiedDebuggingFeature.According to traditional unified debugging,
      * similar features with sufficient quality (sufficientQuality = true)
      * should have increased priorities and different features with sufficient
@@ -126,7 +131,7 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
         }
 
         // Ensure collection is sorted updating items
-        this.sortCollection();
+        this.sortCollection(this.internalList, this.listSortingComparator);
     }
 
     public HashMap<UnifiedDebuggingKey, LinkedList<UnifiedDebuggingItem>> getDataBucket() {
@@ -156,9 +161,13 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
         return item;
     }
 
-    final public void sortCollection() {
-        if (this.listSortingComparator != null) {
-            Collections.sort(this.internalList, this.listSortingComparator);
+    final public void sortCollection(List collection, Comparator comp) {
+        if (comp != null) {
+            Collections.sort(collection, comp);
         }
+    }
+
+    public boolean isEmpty() {
+        return this.internalList.isEmpty();
     }
 }

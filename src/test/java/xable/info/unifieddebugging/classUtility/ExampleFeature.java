@@ -5,7 +5,7 @@
  */
 package xable.info.unifieddebugging.classUtility;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import xable.info.unifieddebugging.UnifiedDebuggingKey;
 
 /**
@@ -14,7 +14,7 @@ import xable.info.unifieddebugging.UnifiedDebuggingKey;
  */
 public class ExampleFeature extends UnifiedDebuggingKey {
 
-    public ExampleFeature(TreeMap<Comparable, Comparable> v) {
+    public ExampleFeature(HashMap<Comparable, Comparable> v) {
         super(v);
     }
 
