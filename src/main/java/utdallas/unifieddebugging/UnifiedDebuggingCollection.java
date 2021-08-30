@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging;
+package utdallas.edu.unifieddebugging;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import xable.info.unifieddebugging.metrics.factories.MetricFactory;
+import utdallas.edu.unifieddebugging.metrics.factories.MetricFactory;
 
 /**
  * The primary class of this library. Create an instance of this class when you
@@ -44,10 +44,10 @@ public class UnifiedDebuggingCollection<T extends UnifiedDebuggingItem> {
      * the HashMap
      * @param factory A MetricFactory that creates instances of
      * UnifiedDebuggingMetric for new UnifiedDebuggingItems
-     * @see xable.info.unifieddebugging.metrics.factories.MetricFactory
-     * @see xable.info.unifieddebugging.UnifiedDebuggingKey
-     * @see xable.info.unifieddebugging.UnifiedDebuggingItem
-     * @see xable.info.unifieddebugging.UnifiedDebuggingItem#createFeature()
+     * @see utdallas.edu.unifieddebugging.metrics.factories.MetricFactory
+     * @see utdallas.edu.unifieddebugging.UnifiedDebuggingKey
+     * @see utdallas.edu.unifieddebugging.UnifiedDebuggingItem
+     * @see utdallas.edu.unifieddebugging.UnifiedDebuggingItem#createFeature()
      * @param itemComparator Comparator to sort UnifiedDebugging items. If null,
      * no sorting is used.
      */

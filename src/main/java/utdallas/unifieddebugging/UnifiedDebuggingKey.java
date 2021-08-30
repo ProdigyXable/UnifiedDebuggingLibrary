@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging;
+package utdallas.edu.unifieddebugging;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -24,7 +24,7 @@ public abstract class UnifiedDebuggingKey implements Comparable<UnifiedDebugging
     public UnifiedDebuggingKey(HashMap<Comparable, Comparable> v) {
         this.values = v;
     }
-
+    
     public abstract Comparable getRepresentation();
 
     @Override

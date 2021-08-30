@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.defaults;
+package utdallas.edu.unifieddebugging.defaults;
 
 import java.util.Comparator;
-import xable.info.unifieddebugging.UnifiedDebuggingItem;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingItem;
 
 /**
  * A default comparator usable to compare UnifiedDebugging items. Sorts on (1)

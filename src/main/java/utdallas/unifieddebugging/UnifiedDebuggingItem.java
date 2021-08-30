@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging;
+package utdallas.edu.unifieddebugging;
 
 /**
  * Interface addable to any class to allow it to work with this unified
@@ -29,7 +29,7 @@ public interface UnifiedDebuggingItem {
      * Used in the DefaultItemComparator, defines a natural ordering of item
      * elements, used when the priorities of two item's match
      *
-     * @see xable.info.unifieddebugging.defaults.DefaultItemComparator
+     * @see utdallas.edu.unifieddebugging.defaults.DefaultItemComparator
      * @return
      */
     public int getNaturalOrder();

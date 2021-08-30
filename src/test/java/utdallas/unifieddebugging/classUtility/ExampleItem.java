@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.classUtility;
+package utdallas.edu.unifieddebugging.classUtility;
 
 import java.util.HashMap;
-import xable.info.unifieddebugging.UnifiedDebuggingItem;
-import xable.info.unifieddebugging.UnifiedDebuggingKey;
-import xable.info.unifieddebugging.UnifiedDebuggingMetric;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingItem;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingKey;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingMetric;
 
 /**
  *
@@ -23,7 +23,7 @@ public final class ExampleItem implements UnifiedDebuggingItem {
     Boolean e2;
     Boolean e3;
     Boolean e4;
-    
+
     int naturalOrder;
 
     public ExampleItem(Boolean i1, Boolean i2, Boolean i3, Boolean i4, int order) {
@@ -33,7 +33,7 @@ public final class ExampleItem implements UnifiedDebuggingItem {
         this.e4 = i4;
 
         this.feature = createFeature();
-        
+
         this.naturalOrder = order;
     }
 
@@ -78,8 +78,8 @@ public final class ExampleItem implements UnifiedDebuggingItem {
     public UnifiedDebuggingKey getFeature() {
         return this.feature;
     }
-    
-    public String toString(){
+
+    public String toString() {
         return (String) this.getItemComparable();
     }
 

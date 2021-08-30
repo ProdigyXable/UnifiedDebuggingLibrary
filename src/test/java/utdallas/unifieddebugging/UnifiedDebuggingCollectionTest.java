@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging;
+package utdallas.edu.unifieddebugging;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,12 +14,12 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import xable.info.unifieddebugging.classUtility.ExampleItem;
-import xable.info.unifieddebugging.classUtility.StringItemLength;
-import xable.info.unifieddebugging.classUtility.StringItemNormal;
-import xable.info.unifieddebugging.defaults.DefaultItemComparator;
-import xable.info.unifieddebugging.metrics.factories.MetricFactory;
-import xable.info.unifieddebugging.metrics.factories.OchiaiMetricFactory;
+import utdallas.edu.unifieddebugging.classUtility.ExampleItem;
+import utdallas.edu.unifieddebugging.classUtility.StringItemLength;
+import utdallas.edu.unifieddebugging.classUtility.StringItemNormal;
+import utdallas.edu.unifieddebugging.defaults.DefaultItemComparator;
+import utdallas.edu.unifieddebugging.metrics.factories.MetricFactory;
+import utdallas.edu.unifieddebugging.metrics.factories.OchiaiMetricFactory;
 
 /**
  *

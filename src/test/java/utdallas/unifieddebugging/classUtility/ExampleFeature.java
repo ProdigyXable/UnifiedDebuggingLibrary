@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.classUtility;
+package utdallas.edu.unifieddebugging.classUtility;
 
 import java.util.HashMap;
-import xable.info.unifieddebugging.UnifiedDebuggingKey;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingKey;
 
 /**
  *

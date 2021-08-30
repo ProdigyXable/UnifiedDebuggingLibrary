@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.metrics.factories;
+package utdallas.edu.unifieddebugging.metrics.factories;
 
-import xable.info.unifieddebugging.UnifiedDebuggingMetric;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingMetric;
 
 /**
  * Template factory class to create UnifiedDebuggingMetrics

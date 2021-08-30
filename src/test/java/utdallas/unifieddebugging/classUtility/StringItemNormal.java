@@ -3,31 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.classUtility;
+package utdallas.edu.unifieddebugging.classUtility;
 
 import java.util.HashMap;
-import xable.info.unifieddebugging.UnifiedDebuggingItem;
-import xable.info.unifieddebugging.UnifiedDebuggingKey;
-import xable.info.unifieddebugging.UnifiedDebuggingMetric;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingItem;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingKey;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingMetric;
 
 /**
  *
  * @author Sam Benton
  */
-public class StringItemLength implements UnifiedDebuggingItem {
+public class StringItemNormal implements UnifiedDebuggingItem {
 
     String string;
-    Double priority;
+    Double initialPriority;
     UnifiedDebuggingMetric metric;
 
-    public StringItemLength(String s) {
+    public StringItemNormal(String s) {
         this.string = s;
-        this.priority = 0.5D;
+        this.initialPriority = 0.5D;
     }
 
     HashMap<Comparable, Comparable> mapInternalValue(String s) {
         HashMap<Comparable, Comparable> result = new HashMap<>();
-        result.put("F1", s.length());
+        result.put("F1", s);
         return result;
     }
 
@@ -41,7 +41,11 @@ public class StringItemLength implements UnifiedDebuggingItem {
     }
 
     public double getFeaturePriority() {
-        return this.priority;
+        return this.initialPriority;
+    }
+
+    public void updateFeaturePriority() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -73,5 +77,4 @@ public class StringItemLength implements UnifiedDebuggingItem {
     public int getNaturalOrder() {
         return 1;
     }
-
 }

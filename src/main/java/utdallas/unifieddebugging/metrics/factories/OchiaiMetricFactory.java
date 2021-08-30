@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.metrics.factories;
+package utdallas.edu.unifieddebugging.metrics.factories;
 
-import xable.info.unifieddebugging.UnifiedDebuggingMetric;
-import xable.info.unifieddebugging.metrics.OchiaiMetric;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingMetric;
+import utdallas.edu.unifieddebugging.metrics.OchiaiMetric;
 
 /**
  * Creates an instance of the OchiaiMetric class
- * @see xable.info.unifieddebugging.metrics.OchiaiMetric
+ * @see utdallas.edu.unifieddebugging.metrics.OchiaiMetric
  * @author Sam Benton
  */
 public class OchiaiMetricFactory extends MetricFactory {

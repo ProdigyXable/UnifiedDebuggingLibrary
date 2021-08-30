@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xable.info.unifieddebugging.metrics;
+package utdallas.edu.unifieddebugging.metrics;
 
 import java.util.HashSet;
 import java.util.Set;
-import xable.info.unifieddebugging.UnifiedDebuggingKey;
-import xable.info.unifieddebugging.UnifiedDebuggingMetric;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingKey;
+import utdallas.edu.unifieddebugging.UnifiedDebuggingMetric;
 
 /**
  * Implements the Ochiai formula
